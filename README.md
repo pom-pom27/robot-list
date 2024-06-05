@@ -1,3 +1,10 @@
+## Screenshot
+
+![Screenshot_5-6-2024_163821_localhost](https://github.com/pom-pom27/robot-list/assets/40870452/1360fc91-39a5-433c-bfae-5539af5b2470)
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
