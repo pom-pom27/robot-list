@@ -5,35 +5,38 @@ interface ICard {
   user: IUser;
 }
 
-const Card = ({ user }: ICard) => {
+const Card = ({
+  user: { id, city, email, name, username, website },
+}: ICard) => {
+  const robotImgurl = `https://robohash.org/${username}`;
   return (
     <div className="flex items-center justify-center gap-4 md:gap-6 min-w-60 h-52 rounded-lg p-3 md:p-4  bg-white text-sm dark:border dark:border-white">
       <Image
-        src={`https://robohash.org/${user.username}`}
+        src={robotImgurl}
         width={190}
         className=" md:w-28 md:h-28 w-24 h-24  rounded-full ring-2 ring-yellow-300 dark:ring-yellow-700"
         height={190}
-        alt={`${user.username} profile picture`}
+        alt={`${username} profile picture`}
       />
       <div className="flex flex-col  w-56  justify-center dark:text-black ">
-        <p className="font-bold text-lg">{user.username}</p>
-        <p className="font-light text-md">{user.email}</p>
+        <p className="font-bold text-lg">{username}</p>
+        <p className="font-light text-md">{email}</p>
 
         <div className=" my-2 border-b border-white dark:border-black" />
 
         <div className="flex flex-col gap-1">
-          <p>ID: {user.id}</p>
-          <p>Full Name: {user.name}</p>
-          <p>City: {user.city}</p>
+          <p>ID: {id}</p>
+          <p>Full Name: {name}</p>
+          <p>City: {city}</p>
           <p>
             Website:{" "}
             <a
-              href={`https://${user.website}`}
+              href={`https://${website}`}
               target="_blank"
               rel="noopener noreferrer"
               className="underline"
             >
-              {user.website}
+              {website}
             </a>
           </p>
         </div>
