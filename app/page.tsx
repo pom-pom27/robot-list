@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getUsers } from "./api/route";
 import CardList from "./components/CardList";
 import Searchbox from "./components/SearchBox";
 import { useDebounce } from "./hooks/useDebounce";
-import { TApiResponse, TUser } from "./types";
 import { getUserList } from "./utils";
+
+type TUsers = Awaited<ReturnType<typeof getUsers>>;
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [users, setUsers] = useState<TApiResponse<TUser[]>>();
+  const [users, setUsers] = useState<TUsers>();
 
   const searchDebounce = useDebounce(searchQuery);
 
