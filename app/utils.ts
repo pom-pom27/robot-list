@@ -24,12 +24,13 @@ export const getUserList = async () => {
     const usersAPI = (await usersRes.json()) as IUserAPI[];
     const userList = convertUserList(usersAPI);
 
-    apiRespnse.status = "success";
-    apiRespnse.data = userList;
+    apiRespnse = { ...apiRespnse, status: "success", data: userList };
   } catch (error) {
-    apiRespnse.status = "error";
-    apiRespnse.message =
-      "Unable to fetching the user list. Check your connections.";
+    apiRespnse = {
+      ...apiRespnse,
+      status: "error",
+      message: "Unable to fetching the user list. Check your connections.",
+    };
   } finally {
     return apiRespnse;
   }
