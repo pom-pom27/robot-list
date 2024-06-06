@@ -4,27 +4,27 @@ import { useEffect, useState } from "react";
 import CardList from "./components/CardList";
 import Searchbox from "./components/SearchBox";
 import { useDebounce } from "./hooks/useDebounce";
-import { IUser } from "./types";
+import { TApiResponse, TUser } from "./types";
 import { getUserList } from "./utils";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [users, setUsers] = useState<IUser[] | null>(null);
+  const [users, setUsers] = useState<TApiResponse<TUser[]>>();
 
   const searchDebounce = useDebounce(searchQuery);
 
   const fetchUsers = async () => {
-    const users = await getUserList();
+    const data = await getUserList();
 
-    setUsers(users);
+    setUsers(data);
   };
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const filteredUser = users?.filter((user) =>
-    user.username.toLowerCase().includes(searchDebounce.toLowerCase())
+  const filteredUser = users?.data?.filter((user) =>
+    user?.username.toLowerCase().includes(searchDebounce.toLowerCase())
   );
 
   return (
@@ -34,7 +34,7 @@ export default function Home() {
         placeholder="Search by username"
         onChange={(e) => setSearchQuery(e.target.value)}
       />
-      <CardList users={filteredUser} />
+      <CardList users={filteredUser} msg={users?.message} />
     </main>
   );
 }

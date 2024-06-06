@@ -28,11 +28,19 @@ interface Geo {
   lng: string;
 }
 
-export interface IUser {
+export type TUser = {
   id: string;
   name: string;
   username: string;
   email: string;
   city: string;
   website: string;
-}
+};
+
+type TStatusResponse = "success" | "error" | "idle";
+
+export type TApiResponse<T> = {
+  status: TStatusResponse;
+  data?: T | null;
+  message?: string | null;
+};

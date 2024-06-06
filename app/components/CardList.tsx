@@ -1,18 +1,20 @@
 import Image from "next/image";
-import { IUser } from "../types";
+import { TUser } from "../types";
 import Card from "./Card";
 
 interface ICardList {
-  users?: IUser[];
+  users?: TUser[];
+  msg?: string | null;
 }
 
-const CardList = ({ users }: ICardList) => {
+const CardList = ({ users, msg }: ICardList) => {
   return (
     <div className="flex gap-6 flex-wrap justify-center">
+      {msg && <div>{msg}</div>}
       {users?.map((user) => (
         <Card key={user.id} user={user} />
       ))}
-      {!users && (
+      {!users && !msg && (
         <Image src="/loading.svg" alt="loading" width={100} height={100} />
       )}
 

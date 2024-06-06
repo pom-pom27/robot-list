@@ -1,6 +1,6 @@
-import { IUser, IUserAPI } from "./types";
+import { IUserAPI, TApiResponse, TUser } from "./types";
 
-export const convertUserList = (usersAPI: IUserAPI[]): IUser[] => {
+export const convertUserList = (usersAPI: IUserAPI[]): TUser[] => {
   const users = usersAPI.map((user) => ({
     id: user.id.toString(),
     name: user.name,
@@ -13,9 +13,24 @@ export const convertUserList = (usersAPI: IUserAPI[]): IUser[] => {
 };
 
 export const getUserList = async () => {
-  const usersRes = await fetch("https://jsonplaceholder.typicode.com/users");
+  let apiRespnse: TApiResponse<TUser[]> = {
+    status: "idle",
+    data: null,
+    message: null,
+  };
 
-  const usersAPI = (await usersRes.json()) as IUserAPI[];
+  try {
+    const usersRes = await fetch("https://jsonplaceholder.typicode.com/users");
+    const usersAPI = (await usersRes.json()) as IUserAPI[];
+    const userList = convertUserList(usersAPI);
 
-  return convertUserList(usersAPI);
+    apiRespnse.status = "success";
+    apiRespnse.data = userList;
+  } catch (error) {
+    apiRespnse.status = "error";
+    apiRespnse.message =
+      "Unable to fetching the user list. Check your connections.";
+  } finally {
+    return apiRespnse;
+  }
 };

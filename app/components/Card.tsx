@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { IUser } from "../types";
+import { TUser } from "../types";
 
 interface ICard {
-  user: IUser;
+  user: TUser;
 }
 
 const Card = ({
